@@ -69,7 +69,11 @@ class Book(pydantic.BaseModel):
             )
         return value
 
+    class Config:
+        """Pydantic config class"""
 
+        allow_mutation = False
+        anystr_lower = True
 
 def main() -> None:
     '''Main function'''
@@ -101,6 +105,13 @@ def main() -> None:
         # root validator validates before the usage of a particular model
         # this book model has 2 kinds of (optional) ISBN but lets say we want at least one
         # root validator, validates before or after the usage it is 
+
+        # Class config allow mutation
+        # Enables or disable change on models
+        print(books[0])
+        # raises an error
+        # books[0].title = "try to change with allow mutation == false"
+        
 
 
 
