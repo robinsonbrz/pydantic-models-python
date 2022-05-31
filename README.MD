@@ -1,5 +1,5 @@
 # Experimento com a biblioteca Python Pydantic
-##  Leitura e validação de dados de um arquivo utilizando Pydantic
+##  Leitura e validação de dados de arquivo Json utilizando Pydantic
 
 <br>
   <div align="center">
