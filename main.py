@@ -72,8 +72,8 @@ class Book(pydantic.BaseModel):
     class Config:
         """Pydantic config class"""
 
-        allow_mutation = False
-        anystr_lower = True
+        # allow_mutation = False  # disble change 
+        anystr_lower = True     # converts to lower case before usage
 
 def main() -> None:
     '''Main function'''
@@ -109,10 +109,22 @@ def main() -> None:
         # Class config allow mutation
         # Enables or disable change on models
         print(books[0])
-        # raises an error
-        # books[0].title = "try to change with allow mutation == false"
-        
+        # raises an error if config allow mutation == True
+        books[0].title = "try to change with allow mutation == false"
+        # it is possible to force lower case when retrieve data as well
+        # anystr_lower = True
 
+        # pydantic allows to convert back to dict using dict method
+        # 
+        print("\n\nDictionary excluding")
+        print(books[0].dict(exclude={"price", "author", "publisher"}))  # new dictionary without "price", "author", "publisher" info
+
+        print("\n\nDictionary")
+        print(books[0].dict(include={"publisher"}))  # new dictionary with only "publisher" info
+
+
+        # can copy with deep flag to copy lists inside
+        # print(books[1].copy(deep=True))
 
 
 if __name__=='__main__':
