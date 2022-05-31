@@ -1,5 +1,5 @@
-# Título do Projeto
-##  Breve descrição do projeto
+# Experimento com a biblioteca Python Pydantic
+##  Leitura e validação de dados de um arquivo utilizando Pydantic
 
 <br>
   <div align="center">
@@ -7,7 +7,7 @@
       </tr>
             <td>
                 <a  href="https://www.linkedin.com/in/robinsonbrz/">
-                Idéia e deploy por Robinson Enedino
+                por Robinson Enedino
             </td>
         <td>
             <a  href="https://www.linkedin.com/in/robinsonbrz/">
@@ -30,14 +30,16 @@ Visite meu WebSite [https://www.enedino.com.br](https://www.enedino.com.br)
 
 ## Objetivo:
 
-Lista dos objetivos
+Utilizar a biblioteca Python Pydantic
+
+Leitura de arquivo Json
+
+Manipulação de objetos BaseModel Pydantic
 
 
 
-# Próximas features 
 
 
-## Utilização do programa 
 
 <br>
 _______________________
