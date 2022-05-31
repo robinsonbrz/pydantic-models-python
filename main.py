@@ -13,6 +13,16 @@ class ISBN10FormatError(Exception):
         self.message = message
         super().__init__(message)
 
+
+class ISBNMissingError(Exception):
+    """Custom error that is raised when both ISBN10 and ISBN13 are missing."""
+
+    def __init__(self, title: str, message: str) -> None:
+        self.title = title
+        self.message = message
+        super().__init__(message)
+
+
 class Book(pydantic.BaseModel):
     title: str
     author: str
@@ -21,7 +31,21 @@ class Book(pydantic.BaseModel):
     isbn_10: Optional[str]
     isbn_13: Optional[str]
     subtitle: Optional[str]
-    
+
+    # pre=True before convert into a model
+    @pydantic.root_validator(pre=True)
+    @classmethod
+    def check_isbn_10_or_13(cls, values):
+        """Make sure there is either an isbn_10 or isbn_13 value defined"""
+        if "isbn_10" not in values and "isbn_13" not in values:
+            raise ISBNMissingError(
+                title=values["title"],
+                message="Document should have either an ISBN10 or ISBN13",
+            )
+        # its gonna raise missing ISBN when theres no ISBN value
+        return values
+
+
     # decorator for pydantic validator
     @pydantic.validator("isbn_10")
     @classmethod
@@ -61,10 +85,10 @@ def main() -> None:
         # list of books created using list comprehension
         # unpacking using keyargs**item right value to the right atribute from the Book class
         books: List[Book] = [Book(**item) for item in data]
-        print("\n\n", type(books))
+        # print("\n\n", type(books))
         # similar to data classes pydantic gives several methods to access data
         # first data
-        print(books[0])
+        # print(books[0])
 
         # with pydantic you have facilitator for the fields
         # pydantic object suggest the name of the fields
@@ -73,6 +97,10 @@ def main() -> None:
 
         # pydantic also helps to validate your data
         # @pydantic.validator("isbn_10")
+
+        # root validator validates before the usage of a particular model
+        # this book model has 2 kinds of (optional) ISBN but lets say we want at least one
+        # root validator, validates before or after the usage it is 
 
 
 
